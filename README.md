@@ -17,7 +17,7 @@ It's really only 1 type, but you can use
 to get the types of sub properties:
 
 ```ts
-import ResumeSchema from '@supastuff/json-resume-types'
+import {ResumeSchema} from '@supastuff/json-resume-types'
 
 function doStuff(work: ResumeSchema["work"]): void { ... }
 ```
