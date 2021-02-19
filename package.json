@@ -1,6 +1,6 @@
 {
   "name": "@supastuff/json-resume-types",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Typescript type generated from resume-schema",
   "main": "dist/resume.js",
   "types": "dist/resume.d.ts",
