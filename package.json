@@ -7,9 +7,9 @@
   "files": [
     "dist"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SupaStuff/json-resume-types"
+  "repository": "git://github.com/SupaStuff/json-resume-types",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "devDependencies": {
     "@tsconfig/node14": "^1.0.0",
