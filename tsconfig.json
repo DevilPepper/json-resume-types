@@ -1,0 +1,18 @@
+{
+  "extends": "@tsconfig/node14/tsconfig.json",
+  "compilerOptions": {
+    "preserveConstEnums": true,
+    "declaration": true,
+    "declarationDir": "dist",
+    "noImplicitAny": true,
+    "outDir": "dist",
+    "moduleResolution": "node",
+  },
+  "include": [
+    "resume.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

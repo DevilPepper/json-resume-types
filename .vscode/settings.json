@@ -1,0 +1,17 @@
+{
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": false,
+  "workbench.editor.highlightModifiedTabs": true,
+  "files.trimFinalNewlines": true,
+  "diffEditor.ignoreTrimWhitespace": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": true,
+    "source.fixAll.eslint": true
+  },
+  "extensions.ignoreRecommendations": true,
+  "files.exclude": {
+    "**/node_modules": true
+  },
+  "editor.detectIndentation": false,
+  "javascript.validate.enable": false,
+}

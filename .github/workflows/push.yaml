@@ -1,0 +1,63 @@
+name: Publish if updated
+
+on:
+  push:
+    branches: [ main ]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    outputs:
+      bumped: ${{ steps.bump.outputs.bumped }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Check version
+      id: bump
+      env:
+        GIT_TAG: ${{ needs.build.outputs.git_tag }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        resumeVersion=$(jq -r '.devDependencies | .["resume-schema"]' package.json | sed -e "s/[\^~<>=]*//g")
+        packageVersion=$(jq -r .version package.json)
+
+        if [ "$resumeVersion" != "$packageVersion" ]; then
+          sed -i '' "s/\"version\":.*/\"version\": \"$resumeVersion\",/" package.json
+
+          git config user.name "Github Actions"
+          git config user.email action@github.com
+          git stage package.json
+          git commit -m "chore(package.json) bump version to $resumeVersion"
+          git push origin main
+
+          echo "::set-output name=bumped::true"
+        fi
+
+  publish:
+    needs: check
+    runs-on: ubuntu-latest
+    if: ${{ needs.check.outputs.bumped }}
+    steps:
+
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - run: npm install
+
+    - uses: actions/setup-node@v2
+      with:
+        registry-url: 'https://npm.pkg.github.com'
+
+    - run: npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
