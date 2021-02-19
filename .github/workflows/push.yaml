@@ -31,7 +31,7 @@ jobs:
         packageVersion=$(jq -r .version package.json)
 
         if [ "$resumeVersion" != "$packageVersion" ]; then
-          sed -i '' "s/\"version\":.*/\"version\": \"$resumeVersion\",/" package.json
+          sed -i package.json -e "s/\"version\":.*/\"version\": \"$resumeVersion\",/"
 
           git config user.name "Github Actions"
           git config user.email action@github.com
