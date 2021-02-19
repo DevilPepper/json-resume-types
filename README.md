@@ -29,5 +29,3 @@ so some of it's issues came along for the ride:
 
 - `Iso8601` doesn't keep it's regex pattern. You'll just have to trust that where ever you use `Iso8601`, it has the correct format
 - additionalProperties are defined as `[k: string]: unknown`. The unknown type may or may not cause problems for you. I think it's fine, but it sounds like there are complaints about it... [issue#356](https://github.com/bcherny/json-schema-to-typescript/issues/356), [issue#335](https://github.com/bcherny/json-schema-to-typescript/issues/335)
-
-Also, while I'm working out some kinks, this package is only available from github packages.
