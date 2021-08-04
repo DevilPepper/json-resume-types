@@ -50,18 +50,17 @@ jobs:
                 console.info(`Branch matched: ${branch}`);
                 if(mustBeGreen) {
                   console.info(`Checking green status: ${branch}`);
-                  const statuses = await github.paginate('GET /repos/{owner}/{repo}/commits/{ref}/status', {
+                  const checkRuns = await github.request('GET /repos/{owner}/{repo}/commits/{ref}/check-runs', {
                     owner,
                     repo,
                     ref: branch,
                   });
-                  if(statuses.length > 0) {
-                    const {state} = statuses[0];
-                    console.info(`Validating status: ${state}`);
-                    if(state != 'success') {
-                      console.info(`Discarding ${branch} with status ${state}`);
-                      continue;
-                    }
+                  const failure = !checkRuns.data.check_runs
+                    .map(({conclusion}) => conclusion)
+                    .every(conclusion => conclusion == "success");
+                  if(failure) {
+                    console.info(`Discarding ${branch} with unsuccessful jobs`);
+                    continue;
                   }
                 }
                 console.info(`Checking labels: ${branch}`);
