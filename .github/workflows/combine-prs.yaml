@@ -72,7 +72,7 @@ jobs:
 
                 console.info(`Adding branch to array: ${branch}`);
                 branches.push(branch);
-                prs.push(`# ${pull['number']} ${pull['title']}`);
+                prs.push(`#${pull['number']} ${pull['title']}`);
                 base_branch = pull['base']['ref'];
               }
             }
@@ -101,6 +101,7 @@ jobs:
           echo "$BRANCHES_TO_COMBINE"
           sourcebranches="${BRANCHES_TO_COMBINE%\"}"
           sourcebranches="${sourcebranches#\"}"
+          echo "$sourcebranches"
           
           basebranch="${BASE_BRANCH%\"}"
           basebranch="${basebranch#\"}"
